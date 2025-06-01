@@ -1,0 +1,245 @@
+/* General Calendar Container Styling */
+.leave-calendar-container {
+    padding: 20px;
+    background-color: #ffffff; /* White background for the container */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer, more prominent shadow */
+    margin: 20px auto; /* Center the container with some top/bottom margin */
+    max-width: 1200px; /* Max width to keep it from getting too wide on large screens */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+.page-title {
+    color: #333;
+    font-size: 2.5em; /* Slightly larger title */
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600; /* Bolder title */
+    border-bottom: 2px solid #e0e0e0; /* Subtle underline */
+    padding-bottom: 10px;
+}
+
+.calendar-role-info {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #666;
+    font-style: italic;
+    background-color: #f0f8ff; /* Light blue background for info box */
+    border-left: 5px solid #007bff; /* Blue border */
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+.no-events-message {
+    text-align: center;
+    color: #888;
+    margin-top: 30px;
+    font-size: 1.2em;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    border: 1px dashed #ccc;
+}
+
+/* Loading, Unauthenticated, and Error states */
+.calendar-loading,
+.calendar-unauthenticated,
+.calendar-error {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.4em;
+    font-weight: 500;
+    color: #555;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin: 50px auto;
+    max-width: 600px;
+}
+.calendar-error {
+    color: #d9534f; /* Bootstrap's danger color */
+    background-color: #ffebeb; /* Light red background for errors */
+    border: 1px solid #d9534f;
+}
+
+/* React Big Calendar Overrides */
+
+/* Header Toolbar (navigation buttons and title) */
+.rbc-toolbar {
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.rbc-btn-group button {
+    background-color: #007bff; /* Primary blue for buttons */
+    color: white;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.rbc-btn-group button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
+}
+
+.rbc-btn-group button:active,
+.rbc-btn-group button.rbc-active {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.rbc-toolbar-label {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Day Cell Styling (including weekends) */
+.rbc-day-bg {
+    position: relative; /* Needed for positioning pseudo-elements */
+    transition: background-color 0.2s ease;
+}
+
+.rbc-day-bg.weekend-day-cell {
+    background-color: #f8f8f8; /* Light grey for weekends */
+}
+
+/* Optional: Add "Weekend Off" text for weekend cells */
+.rbc-day-bg.weekend-day-cell::after {
+    content: "Weekend Off";
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 0.75em;
+    color: #a0a0a0; /* Greyed out text */
+    opacity: 0.8;
+    pointer-events: none; /* Ensure it doesn't interfere with clicks */
+    z-index: 1;
+}
+
+/* Current day highlight */
+.rbc-day-bg.rbc-today {
+    background-color: #e6f7ff; /* Light blue for today */
+    border: 1px solid #91d5ff;
+}
+
+/* Event Styling */
+.rbc-event {
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners for events */
+    padding: 2px 6px;
+    font-size: 0.85em;
+    background-color: #6c757d; /* Default grey background */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+.rbc-event:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.rbc-event-content {
+    color: white; /* Ensure text inside events is white */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rbc-event-content strong {
+    display: block; /* Ensures name takes its own line */
+    font-size: 1em; /* Adjust font size within event */
+    font-weight: 600;
+}
+
+.rbc-event-content p {
+    margin: 0;
+    font-size: 0.85em; /* Adjust font size for leave type */
+    opacity: 0.9;
+}
+
+/* Specific colors for different leave types */
+.rbc-event.leave-type-casual {
+    background-color: #28a745; /* Green for Casual Leave (Bootstrap's success) */
+}
+
+.rbc-event.leave-type-sick {
+    background-color: #dc3545; /* Red for Sick Leave (Bootstrap's danger) */
+}
+
+.rbc-event.leave-type-annual {
+    background-color: #007bff; /* Blue for Annual Leave (Bootstrap's primary) */
+}
+
+.rbc-event.leave-type-maternity {
+    background-color: #fd7e14; /* Orange for Maternity Leave */
+}
+
+.rbc-event.leave-type-paternity {
+    background-color: #6f42c1; /* Purple for Paternity Leave */
+}
+
+.rbc-event.leave-type-bereavement {
+    background-color: #343a40; /* Dark grey for Bereavement Leave */
+}
+
+.rbc-event.leave-type-compensatory {
+    background-color: #17a2b8; /* Cyan for Compensatory Leave */
+}
+
+/* You can add more leave types here with different colors */
+
+/* Adjusting cell height for better visibility if needed */
+.rbc-row-segment {
+    min-height: 25px; /* Adjust as needed */
+}
+
+/* Improve week/day view header styling */
+.rbc-header {
+    background-color: #f8f9fa; /* Light background for headers */
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Make sure the month view cell borders are visible but not too harsh */
+.rbc-month-view {
+    border: 1px solid #e0e0e0;
+}
+
+.rbc-header + .rbc-header {
+    border-left: 1px solid #e0e0e0;
+}
+
+.rbc-rtl .rbc-header + .rbc-header {
+    border-left-width: 0;
+    border-right: 1px solid #e0e0e0;
+}
+
+.rbc-month-row + .rbc-month-row {
+    border-top: 1px solid #e0e0e0;
+}
+
+.rbc-day-bg + .rbc-day-bg {
+    border-left: 1px solid #e0e0e0;
+}
+
+.rbc-rtl .rbc-day-bg + .rbc-day-bg {
+    border-left-width: 0;
+    border-right: 1px solid #e0e0e0;
+}
+
+/* General clean-up for default rbc styles if they clash */
+.rbc-off-range-bg {
+    background-color: #fdfdfd; /* Lighter background for days outside the current month */
+}

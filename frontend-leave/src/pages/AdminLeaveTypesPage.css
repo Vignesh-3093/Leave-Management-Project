@@ -1,0 +1,294 @@
+.admin-leave-types-container {
+    max-width: 800px; /* Container width suitable for form and list */
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Styling for page titles and section headings */
+.admin-leave-types-container h2,
+.admin-leave-types-container h3 {
+    color: #0056b3; /* Blue heading color */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+    margin-top: 25px;
+}
+.admin-leave-types-container h2:first-child,
+.admin-leave-types-container h3:first-child { /* Apply to first h2 or h3 */
+    margin-top: 0;
+}
+
+
+/* --- Styling for Forbidden Access Message --- */
+.admin-forbidden-container { /* Class for the access denied message container */
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff3cd; /* Light yellow background */
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    text-align: center;
+    color: #856404; /* Dark yellow text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.admin-forbidden-container h2 {
+    color: #856404; /* Match text color */
+    border-bottom: none; /* No border for title in this block */
+    margin-bottom: 15px;
+    padding-bottom: 0;
+}
+
+.admin-forbidden-container p {
+    margin-bottom: 15px;
+}
+
+.admin-forbidden-container .back-link-container a { /* Styling for the back link within forbidden message */
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+.admin-forbidden-container .back-link-container a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- Styling for Create Leave Type Form Section --- */
+.create-leave-type-form-section { /* Add this class to the div wrapping the form */
+    margin-bottom: 40px; /* Space below the form section */
+    padding: 20px; /* Add padding */
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+/* Styling for the form itself (reuse general form styles) */
+.create-leave-type-form { /* Add this class to the <form> element */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Styling for form groups (reuse general form-group style) */
+.create-leave-type-form .form-group { /* Add this class to the div wrapping label/input/checkbox */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for labels */
+.create-leave-type-form .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.95em;
+}
+
+/* Styling for text input */
+.create-leave-type-form .form-group input[type="text"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.create-leave-type-form .form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* Styling for checkbox groups */
+.create-leave-type-form .checkbox-group { /* Class added to the div wrapping label and checkbox */
+    display: flex; /* Arrange label and checkbox side-by-side */
+    align-items: center; /* Vertically align */
+    gap: 8px; /* Space between checkbox and label */
+}
+
+.create-leave-type-form .checkbox-group label {
+    margin-bottom: 0; /* Remove bottom margin */
+    font-weight: normal; /* Regular weight label for checkbox */
+    cursor: pointer; /* Indicate clickable */
+    color: #555; /* Match label color */
+}
+.create-leave-type-form .checkbox-group input[type="checkbox"] {
+     cursor: pointer; /* Indicate clickable */
+     transform: scale(1.1); /* Slightly larger checkbox */
+     margin-right: 5px; /* Ensure some space after checkbox */
+}
+
+
+/* Styling for the submit button (reuse general submit-button style) */
+.create-leave-type-form .submit-button { /* Add this class to the <button> */
+    display: block;
+    width: auto; /* Auto width based on content */
+    padding: 10px 20px;
+    background-color: #28a745; /* Green for Create */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    margin-top: 10px;
+    align-self: flex-start; /* Align button to the start (left) if in flex column */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.create-leave-type-form .submit-button:hover:not(:disabled) {
+    background-color: #218838;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.create-leave-type-form .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Styling for form status messages (reuse general message styles) */
+.create-leave-type-form-section .error-message,
+.create-leave-type-form-section .success-message {
+     margin-top: 15px;
+     text-align: center;
+     font-size: 0.95em; /* Slightly larger status messages */
+     font-weight: bold;
+     padding: 10px;
+     border-radius: 4px;
+}
+.create-leave-type-form-section .error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+.create-leave-type-form-section .success-message {
+    color: #28a745;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+
+/* --- Styling for Existing Leave Types List/Table Section --- */
+.existing-leave-types-section { /* Add this class to the div wrapping the list */
+    margin-top: 30px;
+}
+
+/* Styling for the table (reuse general leave-table styles) */
+.admin-leave-types-table { /* Add this class to the <table> */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.admin-leave-types-table th,
+.admin-leave-types-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.admin-leave-types-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+}
+
+.admin-leave-types-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.admin-leave-types-table tbody tr:hover {
+    background-color: #eef;
+}
+
+/* Styling for boolean values (Yes/No) */
+.admin-leave-types-table .boolean-yes { color: green; font-weight: bold; }
+.admin-leave-types-table .boolean-no { color: red; font-weight: bold; }
+
+
+/* Styling for action buttons in the table (Edit/Delete) */
+.admin-leave-types-table td button { /* Target buttons within table cells */
+     padding: 6px 12px; /* Smaller buttons for edit/delete */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    margin-right: 5px; /* Space between buttons */
+}
+.admin-leave-types-table td button:last-child {
+    margin-right: 0;
+}
+
+.admin-leave-types-table td button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Specific button styles (example: Edit/Delete) */
+.admin-leave-types-table .edit-button {
+    background-color: #ffc107; /* Yellow */
+    color: #212529;
+}
+.admin-leave-types-table .edit-button:hover:not(:disabled) { background-color: #e0a800; }
+
+.admin-leave-types-table .delete-button {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+.admin-leave-types-table .delete-button:hover:not(:disabled) { background-color: #c82333; }
+
+
+/* Styling for loading/error/no data messages for the list */
+.existing-leave-types-section p {
+    margin-bottom: 10px;
+}
+.existing-leave-types-section .loading-message,
+.existing-leave-types-section .error-message,
+.existing-leave-types-section .no-data-message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-style: italic;
+    color: #666;
+}
+.existing-leave-types-section .error-message { color: #dc3545; font-weight: bold; }
+
+
+/* Styling for the back link container (reuse back-link-container) */
+.admin-leave-types-container .back-link-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.admin-leave-types-container .back-link-container a {
+    color: #007bff;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out;
+}
+
+.admin-leave-types-container .back-link-container a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for initial authentication loading message */
+.admin-loading-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 50px;
+}

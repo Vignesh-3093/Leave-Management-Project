@@ -1,0 +1,125 @@
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px; /* Add padding inside the container */
+    background-color: #ffffff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: sans-serif; /* Use a consistent sans-serif font throughout */
+    color: #333; /* Default dark gray text color */
+    display: flex; /* Use flexbox to center content easily */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+/* Styling for the login form heading */
+.login-container h2 {
+    text-align: center; /* Center the heading text */
+    color: #333; /* Match container text color */
+    margin-bottom: 30px; /* Space below the heading */
+    width: 100%; /* Ensure heading takes full width for centering */
+}
+
+/* Styling for the form itself */
+.login-form {
+    display: flex; /* Use flexbox for form layout */
+    flex-direction: column; /* Stack form groups vertically */
+    gap: 20px; /* Space between form groups */
+    width: 100%; /* Form takes full width of its container */
+}
+
+/* Styling for each form group (label + input) */
+.form-group { /* A reusable class for labeling/input pairs */
+    display: flex;
+    flex-direction: column; /* Stack label and input vertically */
+    width: 100%; /* Form group takes full width */
+}
+
+/* Styling for labels */
+.form-group label {
+    font-weight: bold; /* Make labels stand out */
+    margin-bottom: 8px; /* Space between label and input */
+    color: #555; /* Slightly lighter color for labels */
+    font-size: 0.95em; /* Slightly smaller label text */
+}
+
+/* Styling for input fields */
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    padding: 10px 12px; /* Add padding inside input fields */
+    border: 1px solid #ccc; /* Standard light gray border */
+    border-radius: 4px; /* Consistent rounded corners */
+    font-size: 1em; /* Standard font size */
+    width: 100%; /* Make fields take full width of their container */
+    box-sizing: border-box; /* Include padding and border in element's total width */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for focus effects */
+}
+
+/* Styling for focused input fields */
+.form-group input:focus {
+    outline: none; /* Remove default browser outline */
+    border-color: #007bff; /* Highlight border with a blue color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Add a subtle blue shadow on focus */
+}
+
+/* Styling for the submit button */
+.login-button { /* Specific class for the login button */
+    display: block; /* Make the button a block element */
+    width: 100%; /* Make the button take full width */
+    padding: 12px 20px; /* Padding inside the button */
+    background-color: #007bff; /* Vibrant blue background */
+    color: white; /* White text for contrast */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners matching inputs */
+    font-size: 1.1em; /* Slightly larger font size for readability */
+    cursor: pointer; /* Indicate clickable */
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
+    margin-top: 10px; /* Space above the button */
+}
+
+/* Styling for the submit button on hover */
+.login-button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styling for the submit button when disabled (e.g., during submission) */
+.login-button:disabled {
+    background-color: #cccccc; /* Gray background when disabled */
+    cursor: not-allowed; /* Indicate not clickable */
+}
+
+/* Styling for error messages */
+.error-message { /* A reusable class for error text */
+    color: #dc3545; /* Standard red color for errors */
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9em; /* Slightly smaller error text */
+}
+
+/* Styling for success messages (if any, e.g., "Logged in!" or registration success) */
+.success-message { /* A reusable class for success text */
+    color: #28a745; /* Standard green color for success */
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* Styling for the link container (e.g., "Don't have an account? Register here") */
+.register-link { /* Specific class for the link container */
+    text-align: center; /* Center the link */
+    margin-top: 20px; /* Space above the link */
+    width: 100%; /* Ensure link container takes full width */
+    font-size: 0.95em; /* Match form label font size */
+}
+
+.register-link a {
+    color: #007bff; /* Blue link color */
+    text-decoration: none; /* Remove default underline */
+    transition: text-decoration 0.2s ease-in-out; /* Smooth underline transition */
+}
+
+.register-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

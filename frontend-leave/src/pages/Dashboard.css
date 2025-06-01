@@ -1,0 +1,267 @@
+.dashboard-container {
+    max-width: 960px; /* Limit content width */
+    margin: 30px auto; /* Center content horizontally */
+    padding: 25px; /* Increased padding */
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Slightly more rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* More prominent shadow */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A pleasant sans-serif font */
+    color: #333; /* Default text color */
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Styling for page titles/section headings */
+.dashboard-container h2,
+.dashboard-container h3 {
+    color: #0056b3; /* A shade of blue for headings */
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff; /* Blue bottom border */
+    padding-bottom: 8px; /* More space below border */
+    margin-top: 25px; /* Space above headings */
+}
+
+/* Remove top margin for the very first heading */
+.dashboard-container h2:first-child {
+    margin-top: 0;
+}
+/* Remove top margin for the first h3 after h2 */
+.dashboard-container h3:first-of-type {
+    margin-top: 20px; /* Less margin if directly after h2 */
+}
+
+
+/* Styling for the welcome message */
+.welcome-message {
+    text-align: center; /* Center the welcome text */
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #eef; /* Very light blue background */
+    border-radius: 8px;
+    border: 1px solid #cce; /* Light border */
+    font-size: 1.1em; /* Slightly larger font */
+    color: #003366; /* Dark blue text */
+}
+
+.welcome-message strong {
+    color: #007bff; /* Highlight username in standard blue */
+}
+
+/* Styling for user role info */
+.user-role-info {
+    text-align: center;
+    margin-top: -20px; /* Pull it up closer to the welcome message */
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+
+/* Styling for the navigation section container */
+.dashboard-nav {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f2f2f2; /* Light gray background */
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+}
+
+.dashboard-nav h3 {
+     margin-top: 0; /* Remove top margin if it's the first element in the nav block */
+    border-bottom: none; /* No separator inside nav block */
+    margin-bottom: 15px; /* Space below nav heading */
+    padding-bottom: 0;
+    color: #555; /* Darker gray for nav heading */
+}
+
+.dashboard-nav ul {
+    list-style: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Arrange links in a row */
+    gap: 25px; /* Increased space between links */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    justify-content: center; /* Center the links horizontally */
+}
+
+/* Styling for individual navigation link paragraphs */
+.dashboard-nav .nav-link { /* Use the class added in JSX */
+    margin: 0; /* Remove default paragraph margin */
+    padding: 0;
+}
+
+.dashboard-nav a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Blue link color */
+    font-weight: bold;
+    font-size: 1.05em; /* Slightly larger font */
+    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out; /* Smooth transition */
+    padding-bottom: 2px; /* Space for underline effect */
+}
+
+.dashboard-nav a:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+/* Styling for role-specific sections (e.g., Manager's team requests, personal history/balances) */
+.role-specific-section { /* General class for these blocks */
+    margin-top: 30px; /* Space above each section */
+    padding-top: 20px;
+    border-top: 1px solid #ddd; /* Separator from previous section */
+}
+
+/* Specific margin adjustments for the first role-specific section if needed */
+.role-specific-section:first-of-type {
+    margin-top: 0; /* If it's the first block after nav */
+    border-top: none;
+    padding-top: 0;
+}
+
+
+/* Styling for tables (reused and enhanced) */
+.leave-table { /* Common class for all tables */
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders between cells */
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow for tables */
+}
+
+.leave-table th,
+.leave-table td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 12px; /* Increased padding */
+    text-align: left; /* Align text to the left */
+    vertical-align: top; /* Align cell content to the top */
+}
+
+.leave-table th {
+    background-color: #007bff; /* Blue background for headers */
+    color: white; /* White text */
+    font-weight: bold;
+    text-transform: uppercase; /* Uppercase headers */
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+}
+
+.leave-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Lighter zebra striping */
+}
+
+.leave-table tbody tr:hover {
+    background-color: #eef; /* Very light blue highlight on hover */
+}
+
+/* Styling for status text in tables (using classes now) */
+.leave-table td.status-pending { color: orange; font-weight: bold; } /* Added classes */
+.leave-table td.status-approved { color: green; font-weight: bold; }
+.leave-table td.status-rejected { color: red; font-weight: bold; }
+.leave-table td.status-cancelled { color: grey; font-weight: bold; }
+.leave-table td.status-awaiting_admin_approval { color: blue; font-weight: bold;}
+
+
+/* Styling for action buttons in tables (reused and enhanced) */
+.leave-table td button { /* Target buttons within table cells */
+    padding: 8px 15px; /* Increased padding */
+    border: none;
+    border-radius: 5px; /* Slightly more rounded */
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out; /* Add opacity transition */
+    margin-right: 8px; /* Space between buttons */
+}
+
+.leave-table td button:last-child {
+    margin-right: 0;
+}
+
+.leave-table td button:disabled {
+    opacity: 0.6; /* Make disabled buttons semi-transparent */
+    cursor: not-allowed;
+}
+
+/* Specific button styles */
+.leave-table .approve-button { background-color: #28a745; color: white; }
+.leave-table .approve-button:hover:not(:disabled) { background-color: #218838; }
+
+.leave-table .reject-button { background-color: #dc3545; color: white; }
+.leave-table .reject-button:hover:not(:disabled) { background-color: #c82333; }
+
+.leave-table .cancel-button { background-color: #ffc107; color: #212529; }
+.leave-table .cancel-button:hover:not(:disabled) { background-color: #e0a800; }
+
+
+/* Styling for messages (loading, error, no data) */
+.dashboard-container p {
+    margin-bottom: 10px;
+}
+
+.loading-message { /* Added class */
+    font-style: italic;
+    color: #666;
+    text-align: center; /* Center loading messages */
+    margin-top: 15px;
+}
+
+.error-message { /* Reused class */
+     color: #dc3545;
+     font-weight: bold;
+     margin-top: 15px;
+     text-align: center;
+}
+
+.no-data-message { /* Added class */
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 15px;
+}
+
+
+/* Styling for the Logout button */
+.logout-button { /* Added class */
+    display: block; /* Make it a block element */
+    width: auto; /* Auto width based on content */
+    margin: 30px auto 10px auto; /* Center horizontally, space above */
+    padding: 10px 20px;
+    background-color: #6c757d; /* Gray color for logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout-button:hover:not(:disabled) {
+    background-color: #5a6268; /* Darker gray */
+}
+
+.logout-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Style for admin test section */
+.admin-test-section {
+    background-color: #fff3cd; /* Light yellow background */
+    border: 1px solid #ffeeba;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 30px;
+    color: #856404; /* Dark yellow text */
+}
+
+.admin-test-section h3 {
+    color: #856404; /* Match text color */
+    border-bottom-color: #ffeeba; /* Light yellow border */
+}
+
+/* Style for unauthenticated/loading messages */
+.dashboard-loading,
+.dashboard-unauthenticated {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 50px;
+}
