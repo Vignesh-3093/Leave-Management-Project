@@ -1,6 +1,5 @@
 import express, { RequestHandler } from "express";
 import { Brackets, In } from "typeorm";
-
 import { AppDataSource } from "../data-source";
 import { LeaveType } from "../entity/LeaveType";
 import { LeaveBalance } from "../entity/LeaveBalance";
@@ -14,7 +13,7 @@ import {
   MANAGER_ROLE_ID,
   INTERN_ROLE_ID,
 } from "../constants";
-import moment from 'moment';
+import moment from "moment";
 import protect, { AuthenticatedRequest } from "../middleware/authMiddleware";
 // Import the role middleware if you decide to use it here instead of inline check
 // import { authorizeRole } from '../middleware/roleMiddleware';
@@ -112,8 +111,8 @@ interface CalendarEventResponse {
 const getLeaveTypesHandler: RequestHandler<
   {}, // Req Params
   LeaveType[] | ErrorResponse,
-  {}, 
-  {} 
+  {},
+  {}
 > = async (req: AuthenticatedRequest, res): Promise<void> => {
   const userId = req.user?.user_id; // Get user ID from token
   const userRoleId = req.user?.role_id; // Get user Role ID from token
@@ -587,12 +586,10 @@ const updateLeaveStatusHandler: RequestHandler<
     console.error(
       `User ${manager_user_id} with role ${manager_role_id} attempted to use Manager status update endpoint.`
     );
-    res
-      .status(403)
-      .json({
-        message:
-          "Forbidden: Only managers can perform this action on this endpoint.",
-      });
+    res.status(403).json({
+      message:
+        "Forbidden: Only managers can perform this action on this endpoint.",
+    });
     return;
   }
 
@@ -610,11 +607,9 @@ const updateLeaveStatusHandler: RequestHandler<
       console.warn(
         `Manager ${manager_user_id}: Leave request ${leaveId} not found or is not in 'Pending' status.`
       );
-      res
-        .status(404)
-        .json({
-          message: "Leave request not found or has already been processed.",
-        });
+      res.status(404).json({
+        message: "Leave request not found or has already been processed.",
+      });
       return;
     }
     if (
@@ -626,12 +621,9 @@ const updateLeaveStatusHandler: RequestHandler<
           leaveRequest.user?.user_id || "N/A"
         } who does not report to them.`
       );
-      res
-        .status(403)
-        .json({
-          message:
-            "You are not authorized to approve/reject this leave request.",
-        });
+      res.status(403).json({
+        message: "You are not authorized to approve/reject this leave request.",
+      });
       return;
     }
 
@@ -897,122 +889,168 @@ const cancelLeaveHandler: RequestHandler<
 router.put("/my/:id/cancel", protect, cancelLeaveHandler);
 
 const getLeaveAvailabilityHandler: RequestHandler<
-    {}, // Req Params
-    CalendarEventResponse[] | ErrorResponse,
-    {},
-    {} 
+  {}, // Req Params
+  CalendarEventResponse[] | ErrorResponse,
+  {},
+  {}
 > = async (req: AuthenticatedRequest, res): Promise<void> => {
-    const user = req.user;
+  const user = req.user;
 
-    if (!user) {
-        res.status(401).json({ message: "Unauthorized: User not authenticated." });
+  if (!user) {
+    res.status(401).json({ message: "Unauthorized: User not authenticated." });
+    return;
+  }
+
+  try {
+    const leaveRepository = AppDataSource.getRepository(Leave);
+    const userRepository = AppDataSource.getRepository(User);
+
+    // Start with the base query builder and the initial status filter
+    let queryBuilder = leaveRepository
+      .createQueryBuilder("leave")
+      .leftJoinAndSelect("leave.user", "user")
+      .leftJoinAndSelect("leave.leaveType", "leaveType")
+      .select([
+        "leave.leave_id",
+        "leave.start_date",
+        "leave.end_date",
+        "leave.status",
+        "user.user_id",
+        "user.name",
+        "user.email",
+        "leaveType.name",
+      ])
+      .where("leave.status = :statusApproved", {
+        statusApproved: LeaveStatus.Approved,
+      }); // Initial WHERE clause with named parameter
+
+    // Role-based filtering
+    if (user.role_id === ADMIN_ROLE_ID) {
+      // No additional WHERE clause for admin, they see all approved leaves
+    } else if (user.role_id === MANAGER_ROLE_ID) {
+      // Managers view leaves of their direct reports AND their own leaves
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          qb.where("user.manager_id = :managerId", { managerId: user.user_id }) // Direct reports
+            .orWhere("user.user_id = :currentUserId", {
+              currentUserId: user.user_id,
+            }); // Manager's own leaves
+        })
+      );
+    } else if (
+      user.role_id === EMPLOYEE_ROLE_ID ||
+      user.role_id === INTERN_ROLE_ID
+    ) {
+      console.log(
+        `Backend: Calendar Request by User ID: ${user.user_id}, Role ID: ${user.role_id}`
+      );
+
+      const currentUserDetails = await userRepository.findOne({
+        where: { user_id: user.user_id },
+        select: ["user_id", "manager_id"], // Only select user_id and manager_id for efficiency
+      });
+
+      console.log(
+        `Backend: Retrieved currentUserDetails for ${user.user_id}:`,
+        currentUserDetails
+      );
+
+      if (!currentUserDetails) {
+        console.warn(
+          `User ${user.user_id} not found in DB for calendar availability check.`
+        );
+        res.status(404).json({ message: "Current user details not found." });
         return;
-    }
+      }
 
-    try {
-        const leaveRepository = AppDataSource.getRepository(Leave);
-        const userRepository = AppDataSource.getRepository(User);
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          // Condition 1: Current user's own leaves
+          qb.where("user.user_id = :currentUserId", {
+            currentUserId: user.user_id,
+          });
 
-        // Start with the base query builder and the initial status filter
-        let queryBuilder = leaveRepository
-            .createQueryBuilder("leave")
-            .leftJoinAndSelect("leave.user", "user")
-            .leftJoinAndSelect("leave.leaveType", "leaveType")
-            .select([
-                "leave.leave_id",
-                "leave.start_date",
-                "leave.end_date",
-                "leave.status",
-                "user.user_id",
-                "user.name",
-                "user.email",
-                "leaveType.name",
-            ])
-            .where("leave.status = :statusApproved", { statusApproved: LeaveStatus.Approved }); // Initial WHERE clause with named parameter
-
-        // Role-based filtering
-        if (user.role_id === ADMIN_ROLE_ID) {
-            // No additional WHERE clause for admin, they see all approved leaves
-        } else if (user.role_id === MANAGER_ROLE_ID) {
-            // Managers view leaves of their direct reports AND their own leaves
-            queryBuilder.andWhere(new Brackets(qb => {
-                qb.where("user.manager_id = :managerId", { managerId: user.user_id }) // Direct reports
-                  .orWhere("user.user_id = :currentUserId", { currentUserId: user.user_id }); // Manager's own leaves
-            }));
-        } else if (user.role_id === EMPLOYEE_ROLE_ID || user.role_id === INTERN_ROLE_ID) {
-            console.log(`Backend: Calendar Request by User ID: ${user.user_id}, Role ID: ${user.role_id}`);
-
-            const currentUserDetails = await userRepository.findOne({
-                where: { user_id: user.user_id },
-                select: ["user_id", "manager_id"], // Only select user_id and manager_id for efficiency
+          // Condition 2: Leaves of their manager
+          if (currentUserDetails.manager_id) {
+            qb.orWhere("user.user_id = :managerOfCurrentUser", {
+              managerOfCurrentUser: currentUserDetails.manager_id,
             });
+          }
 
-            console.log(`Backend: Retrieved currentUserDetails for ${user.user_id}:`, currentUserDetails);
-
-            if (!currentUserDetails) {
-                console.warn(`User ${user.user_id} not found in DB for calendar availability check.`);
-                res.status(404).json({ message: "Current user details not found." });
-                return;
-            }
-
-            queryBuilder.andWhere(new Brackets(qb => {
-                // Condition 1: Current user's own leaves
-                qb.where("user.user_id = :currentUserId", { currentUserId: user.user_id });
-
-                // Condition 2: Leaves of their manager
-                if (currentUserDetails.manager_id) {
-                    qb.orWhere("user.user_id = :managerOfCurrentUser", { managerOfCurrentUser: currentUserDetails.manager_id });
-                }
-
-                // Condition 3: Leaves of their direct teammates (peers under the same manager, excluding themselves)
-                if (currentUserDetails.manager_id) {
-                    qb.orWhere("(user.manager_id = :sameManagerId AND user.user_id != :excludeSelfId)", {
-                        sameManagerId: currentUserDetails.manager_id,
-                        excludeSelfId: user.user_id,
-                    });
-                }
-            }));
-
-        } else {
-            res.status(403).json({ message: "Forbidden: Your role does not permit viewing this calendar." });
-            return;
-        }
-
-        const rawLeaveEvents = await queryBuilder.getRawMany();
-
-        // ... (rest of the code for formatting and sending response, unchanged from previous version) ...
-        const formattedEvents: CalendarEventResponse[] = rawLeaveEvents.map((row: any) => {
-            console.log(`Backend Formatting Log - Original row.leave_start_date: ${row.leave_start_date}`);
-            console.log(`Backend Formatting Log - Original row.leave_end_date: ${row.leave_end_date}`);
-
-            const startDateFormatted = row.leave_start_date ? moment(row.leave_start_date).format('YYYY-MM-DD') : '';
-            const endDateFormatted = row.leave_end_date ? moment(row.leave_end_date).format('YYYY-MM-DD') : '';
-
-            console.log(`Backend Formatting Log - Formatted Start Date: ${startDateFormatted}`);
-            console.log(`Backend Formatting Log - Formatted End Date: ${endDateFormatted}`);
-
-            return {
-                leave_id: row.leave_leave_id,
-                title: row.user_name,
-                start: startDateFormatted,
-                end: endDateFormatted,
-                userName: row.user_name,
-                userEmail: row.user_email,
-                leaveTypeName: row.leaveType_name,
-                status: row.leave_status,
-            };
+          // Condition 3: Leaves of their direct teammates (peers under the same manager, excluding themselves)
+          if (currentUserDetails.manager_id) {
+            qb.orWhere(
+              "(user.manager_id = :sameManagerId AND user.user_id != :excludeSelfId)",
+              {
+                sameManagerId: currentUserDetails.manager_id,
+                excludeSelfId: user.user_id,
+              }
+            );
+          }
+        })
+      );
+    } else {
+      res
+        .status(403)
+        .json({
+          message:
+            "Forbidden: Your role does not permit viewing this calendar.",
         });
-
-        res.json(formattedEvents);
-        return;
-
-    } catch (error) {
-        console.error("Error fetching leave availability:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-        return;
+      return;
     }
+
+    const rawLeaveEvents = await queryBuilder.getRawMany();
+
+    // ... (rest of the code for formatting and sending response, unchanged from previous version) ...
+    const formattedEvents: CalendarEventResponse[] = rawLeaveEvents.map(
+      (row: any) => {
+        console.log(
+          `Backend Formatting Log - Original row.leave_start_date: ${row.leave_start_date}`
+        );
+        console.log(
+          `Backend Formatting Log - Original row.leave_end_date: ${row.leave_end_date}`
+        );
+
+        const startDateFormatted = row.leave_start_date
+          ? moment(row.leave_start_date).format("YYYY-MM-DD")
+          : "";
+        const endDateFormatted = row.leave_end_date
+          ? moment(row.leave_end_date).format("YYYY-MM-DD")
+          : "";
+
+        console.log(
+          `Backend Formatting Log - Formatted Start Date: ${startDateFormatted}`
+        );
+        console.log(
+          `Backend Formatting Log - Formatted End Date: ${endDateFormatted}`
+        );
+
+        return {
+          leave_id: row.leave_leave_id,
+          title: row.user_name,
+          start: startDateFormatted,
+          end: endDateFormatted,
+          userName: row.user_name,
+          userEmail: row.user_email,
+          leaveTypeName: row.leaveType_name,
+          status: row.leave_status,
+        };
+      }
+    );
+
+    res.json(formattedEvents);
+    return;
+  } catch (error) {
+    console.error("Error fetching leave availability:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+    return;
+  }
 };
 
-router.get("/calendar/leave-availability", protect, getLeaveAvailabilityHandler);
+router.get(
+  "/calendar/leave-availability",
+  protect,
+  getLeaveAvailabilityHandler
+);
 
 export { router };

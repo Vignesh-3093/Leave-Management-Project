@@ -563,7 +563,7 @@ function AdminUsersPage() {
                         ))}
                       </ul>
                     ) : (
-                      <p>Admin Don't have Leave policy.</p>
+                      <p>No Leave Policy</p>
                     )}
                   </div>
                   {/* TODO: Add buttons for Edit/Delete user if needed */}

@@ -9,7 +9,8 @@ import { User } from "../entity/User";
 import { Role } from "../entity/Role"; // Assuming Role entity exists and is needed
 
 // Import authentication middleware
-import protect, { AuthenticatedRequest } from "../middleware/authMiddleware";
+import protect from "../middleware/authMiddleware";
+import { AuthenticatedRequest } from "../middleware/authMiddleware";
 
 // Create an Express router instance
 const router: express.Router = express.Router();
@@ -79,12 +80,10 @@ const registerHandler: RequestHandler<
     role_id === undefined ||
     typeof role_id !== "number"
   ) {
-    res
-      .status(400)
-      .json({
-        message:
-          "All fields (name, email, password, role_id) are required and role_id must be a number",
-      });
+    res.status(400).json({
+      message:
+        "All fields (name, email, password, role_id) are required and role_id must be a number",
+    });
     return;
   }
 
@@ -244,11 +243,9 @@ router.get(
     } else {
       // This else block should ideally not be reached if protect middleware works correctly,
       // but it's a defensive check.
-      res
-        .status(401)
-        .json({
-          message: "Not authorized, user info missing after authentication",
-        });
+      res.status(401).json({
+        message: "Not authorized, user info missing after authentication",
+      });
     }
   }
 );
