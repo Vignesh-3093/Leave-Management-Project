@@ -1,0 +1,375 @@
+/* Root variables for cute dark theme */
+:root {
+  --primary-color: #d8b4fe; /* Pastel purple for accents */
+  --hover-color: #ffccde; /* Soft pink for hover */
+  --background-gradient: linear-gradient(
+    135deg,
+    #1a1a2e,
+    #2a2a3c
+  ); /* Soft dark navy gradient */
+  --card-bg: #16213e; /* Card background */
+  --input-bg: #2a2a4a; /* Input background */
+  --input-focus-bg: #3a3a5a; /* Input focus background */
+  --text-color: #e0e0e0; /* Light gray for text */
+  --label-color: #b0b0b0; /* Muted gray for labels */
+  --shadow-color: rgba(0, 0, 0, 0.4); /* Softer shadow */
+  --glow-color: rgba(255, 204, 222, 0.3); /* Soft pink glow */
+  --success-color: #a7f3d0; /* Pastel green for success */
+  --error-color: #ff8787; /* Coral for errors */
+  --border-color: rgba(255, 255, 255, 0.1); /* Subtle border */
+  --info-bg: #fce7f3; /* Soft pastel pink for info messages */
+}
+
+/* Red theme (click) */
+body.theme-red {
+  --primary-color: #ff8787; /* Pastel red */
+  --hover-color: #ff6b6b; /* Slightly darker pastel red */
+  --background-gradient: linear-gradient(
+    135deg,
+    #2a0a0a,
+    #3c1414
+  ); /* Soft red-tinted dark gradient */
+  --card-bg: #2a0a0a; /* Dark red card background */
+  --input-bg: #3a1414; /* Darker red input */
+  --input-focus-bg: #4a1e1e; /* Focus red */
+  --glow-color: rgba(255, 135, 135, 0.3); /* Pastel red glow */
+  --info-bg: rgba(255, 135, 135, 0.1); /* Light red-tinted info background */
+}
+
+/* Green theme (click) */
+body.theme-green {
+  --primary-color: #a7f3d0; /* Pastel green */
+  --hover-color: #6ee7b7; /* Slightly darker pastel green */
+  --background-gradient: linear-gradient(
+    135deg,
+    #0a2a0a,
+    #143c14
+  ); /* Soft green-tinted dark gradient */
+  --card-bg: #0a2a0a; /* Dark green card background */
+  --input-bg: #143c14; /* Darker green input */
+  --input-focus-bg: #1e4a1e; /* Focus green */
+  --glow-color: rgba(167, 243, 208, 0.3); /* Pastel green glow */
+  --info-bg: rgba(167, 243, 208, 0.1); /* Light green-tinted info background */
+}
+
+/* Container styling */
+.dashboard-container {
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 16px; /* More rounded for cuteness */
+  box-shadow: 0 4px 15px var(--shadow-color); /* Softer shadow */
+  font-family: "Poppins", sans-serif; /* Cute, rounded font */
+  color: var(--text-color); /* Light gray text */
+  line-height: 1.6;
+  animation: fadeIn 0.5s ease-in;
+  min-height: calc(100vh - 60px);
+  overflow-y: auto; /* Subtle entrance */
+}
+
+/* Headings styling */
+.dashboard-container h2,
+.dashboard-container h3 {
+  color: var(--primary-color); /* Pastel purple */
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 8px;
+  margin-top: 25px;
+}
+
+.dashboard-container h2:first-child {
+  margin-top: 0;
+}
+
+.dashboard-container h3:first-of-type {
+  margin-top: 20px;
+}
+
+/* Welcome message */
+.welcome-message {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--info-bg); /* Soft pastel pink */
+  border-radius: 12px; /* More rounded */
+  border: 1px solid var(--border-color);
+  font-size: 1.1em;
+  color: var(--text-color);
+}
+
+.welcome-message strong {
+  color: var(--primary-color); /* Pastel purple */
+}
+
+/* User role info */
+.user-role-info {
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 30px;
+  color: var(--label-color); /* Muted gray */
+  font-size: 0.95em;
+}
+
+/* Navigation section */
+.dashboard-nav {
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 12px; /* More rounded */
+  box-shadow: inset 0 1px 3px var(--shadow-color); /* Subtle inner shadow */
+}
+
+.dashboard-nav h3 {
+  margin-top: 0;
+  border-bottom: none;
+  margin-bottom: 15px;
+  padding-bottom: 0;
+  color: var(--label-color); /* Muted gray */
+}
+
+.dashboard-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dashboard-nav .nav-link {
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-nav a {
+  text-decoration: none;
+  color: var(--primary-color); /* Pastel purple */
+  font-weight: bold;
+  font-size: 1.05em;
+  transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+  padding-bottom: 2px;
+}
+
+.dashboard-nav a:hover {
+  color: var(--hover-color); /* Soft pink */
+  text-decoration: underline;
+}
+
+/* Role-specific sections */
+.role-specific-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.role-specific-section:first-of-type {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+/* Table styling */
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 12px; /* More rounded */
+  /* overflow: hidden; Ensure rounded corners apply */
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.leave-table th,
+.leave-table td {
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+  color: var(--text-color);
+}
+
+.leave-table th {
+  background-color: var(--primary-color); /* Pastel purple */
+  color: #1a1a2e; /* Dark text for contrast */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+}
+
+.leave-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle contrast */
+}
+
+.leave-table tbody tr:hover {
+  background-color: rgba(255, 204, 222, 0.1); /* Soft pink hover */
+}
+
+/* Status text */
+.leave-table td.status-pending {
+  color: #facc15; /* Soft yellow for pending */
+  font-weight: bold;
+}
+
+.leave-table td.status-approved {
+  color: var(--success-color); /* Pastel green */
+  font-weight: bold;
+}
+
+.leave-table td.status-rejected {
+  color: var(--error-color); /* Coral */
+  font-weight: bold;
+}
+
+.leave-table td.status-cancelled {
+  color: var(--label-color); /* Muted gray */
+  font-weight: bold;
+}
+
+.leave-table td.status-awaiting_admin_approval {
+  color: var(--primary-color); /* Pastel purple */
+  font-weight: bold;
+}
+
+/* Action buttons in tables */
+.leave-table td button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px; /* More rounded */
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  margin-right: 8px;
+}
+
+.leave-table td button:last-child {
+  margin-right: 0;
+}
+
+.leave-table td button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.leave-table .approve-button {
+  background-color: var(--success-color); /* Pastel green */
+  color: #1a1a2e;
+}
+
+.leave-table .approve-button:hover:not(:disabled) {
+  background-color: #6ee7b7; /* Darker pastel green */
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.leave-table .reject-button {
+  background-color: var(--error-color); /* Coral */
+  color: #1a1a2e;
+}
+
+.leave-table .reject-button:hover:not(:disabled) {
+  background-color: #ff6b6b; /* Darker coral */
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.leave-table .cancel-button {
+  background-color: #ffccde; /* Soft pink */
+  color: #1a1a2e;
+}
+
+.leave-table .cancel-button:hover:not(:disabled) {
+  background-color: #f9a8d4; /* Darker pink */
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+/* Messages */
+.dashboard-container p {
+  margin-bottom: 10px;
+}
+
+.loading-message,
+.no-data-message {
+  font-style: italic;
+  color: var(--label-color); /* Muted gray */
+  text-align: center;
+  margin-top: 15px;
+}
+
+.error-message {
+  color: var(--error-color); /* Coral */
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Logout button */
+.logout-button {
+  display: block;
+  width: auto;
+  margin: 30px auto 10px auto;
+  padding: 10px 20px;
+  background-color: var(--error-color); /* Coral for logout */
+  color: #1a1a2e;
+  border: none;
+  border-radius: 12px; /* More rounded */
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.logout-button:hover:not(:disabled) {
+  background-color: #ff6b6b; /* Darker coral */
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px var(--shadow-color);
+}
+
+.logout-button:disabled {
+  background-color: #4a4a4a; /* Softer gray */
+  cursor: not-allowed;
+}
+
+/* Admin test section */
+.admin-test-section {
+  background-color: var(--info-bg); /* Soft pastel pink */
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  border-radius: 12px; /* More rounded */
+  margin-top: 30px;
+  color: var(--text-color);
+}
+
+.admin-test-section h3 {
+  color: var(--primary-color); /* Pastel purple */
+  border-bottom-color: var(--border-color);
+}
+
+/* Unauthenticated/loading messages */
+.dashboard-loading,
+.dashboard-unauthenticated {
+  text-align: center;
+  font-size: 1.2em;
+  color: var(--label-color); /* Muted gray */
+  margin-top: 50px;
+  background-color: var(--info-bg); /* Soft pastel pink */
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

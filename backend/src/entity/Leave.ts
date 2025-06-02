@@ -3,21 +3,28 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany, // <-- Import OneToMany
+  OneToMany,
   JoinColumn,
+  ValueTransformer,
 } from "typeorm";
 import { User } from "./User";
 import { LeaveType } from "./LeaveType";
 import { LeaveApproval } from "./LeaveApproval";
 
-// Define the possible values for the status ENUM
 export enum LeaveStatus {
   Pending = "Pending",
   Approved = "Approved",
   Rejected = "Rejected",
   Cancelled = "Cancelled",
-  Awaiting_Admin_Approval = 'Awaiting_Admin_Approval',
+  Awaiting_Admin_Approval = "Awaiting_Admin_Approval",
 }
+
+// Custom transformer to handle date strings from the database
+export const dateStringTransformer: ValueTransformer = {
+  from: (value: string | null) => (value ? new Date(value) : null),
+  to: (value: Date | null) =>
+    value ? value.toISOString().split("T")[0] : null, // If you ever write back as a date string
+};
 
 @Entity("leaves")
 export class Leave {
@@ -30,10 +37,10 @@ export class Leave {
   @Column({ type: "int" })
   type_id!: number;
 
-  @Column({ type: "date" })
+  @Column({ type: "date", transformer: dateStringTransformer }) // Apply the transformer
   start_date!: Date;
 
-  @Column({ type: "date" })
+  @Column({ type: "date", transformer: dateStringTransformer }) // Apply the transformer
   end_date!: Date;
 
   @Column({ type: "text" })
@@ -53,26 +60,26 @@ export class Leave {
     default: () => "CURRENT_TIMESTAMP",
     onUpdate: "CURRENT_TIMESTAMP",
   })
-  updated_at!: Date; // Define the Many-to-One relationship with User
+  updated_at!: Date;
 
-  @Column({ nullable: true }) // processed_by_id can be null initially (when status is Pending)
-  processed_by_id!: number | null; // ID of the user who last processed this request
+  @Column({ nullable: true })
+  processed_by_id!: number | null;
 
-  @Column({ type: "timestamp", nullable: true }) // processed_at can be null initially
-  processed_at!: Date | null; // Timestamp when the request was last processed
+  @Column({ type: "timestamp", nullable: true })
+  processed_at!: Date | null;
 
   @ManyToOne(() => User, (user) => user.leaves)
   @JoinColumn({ name: "user_id" })
-  user!: User; // Define the Many-to-One relationship with LeaveType
+  user!: User;
 
   @ManyToOne(() => LeaveType, (leaveType) => leaveType.leaves)
   @JoinColumn({ name: "type_id" })
-  leaveType!: LeaveType;// A Leave request can have many approval records // The inverse side on the LeaveApproval entity is the 'leave' property
+  leaveType!: LeaveType;
 
-  @ManyToOne(() => User, { createForeignKeyConstraints: false }) // Adjust options based on your DB constraints
+  @ManyToOne(() => User, { createForeignKeyConstraints: false })
   @JoinColumn({ name: "processed_by_id" })
   processedBy!: User;
 
   @OneToMany(() => LeaveApproval, (leaveApproval) => leaveApproval.leave)
-  approvals!: LeaveApproval[]; // Property name for the list of approval records
+  approvals!: LeaveApproval[];
 }

@@ -1,0 +1,329 @@
+/* Root variables for cute dark theme */
+:root {
+  --primary-color: #d8b4fe; /* Pastel purple for accents */
+  --hover-color: #ffccde; /* Soft pink for hover */
+  --background-gradient: linear-gradient(
+    135deg,
+    #1a1a2e,
+    #2a2a3c
+  ); /* Soft dark navy gradient */
+  --card-bg: #16213e; /* Card background */
+  --input-bg: #2a2a4a; /* Input background */
+  --input-focus-bg: #3a3a5a; /* Input focus background */
+  --text-color: #e0e0e0; /* Light gray for text */
+  --label-color: #b0b0b0; /* Muted gray for labels */
+  --shadow-color: rgba(0, 0, 0, 0.4); /* Softer shadow */
+  --glow-color: rgba(255, 204, 222, 0.3); /* Soft pink glow */
+  --success-color: #a7f3d0; /* Pastel green for success */
+  --error-color: #ff8787; /* Coral for errors */
+  --border-color: rgba(255, 255, 255, 0.1); /* Subtle border */
+  --info-bg: #fce7f3; /* Soft pastel pink for info messages */
+}
+
+/* Red theme (click) */
+body.theme-red {
+  --primary-color: #ff8787; /* Pastel red */
+  --hover-color: #ff6b6b; /* Slightly darker pastel red */
+  --background-gradient: linear-gradient(
+    135deg,
+    #2a0a0a,
+    #3c1414
+  ); /* Soft red-tinted dark gradient */
+  --card-bg: #2a0a0a; /* Dark red card background */
+  --input-bg: #3a1414; /* Darker red input */
+  --input-focus-bg: #4a1e1e; /* Focus red */
+  --glow-color: rgba(255, 135, 135, 0.3); /* Pastel red glow */
+  --info-bg: rgba(255, 135, 135, 0.1); /* Light red-tinted info background */
+}
+
+/* Green theme (click) */
+body.theme-green {
+  --primary-color: #a7f3d0; /* Pastel green */
+  --hover-color: #6ee7b7; /* Slightly darker pastel green */
+  --background-gradient: linear-gradient(
+    135deg,
+    #0a2a0a,
+    #143c14
+  ); /* Soft green-tinted dark gradient */
+  --card-bg: #0a2a0a; /* Dark green card background */
+  --input-bg: #143c14; /* Darker green input */
+  --input-focus-bg: #1e4a1e; /* Focus green */
+  --glow-color: rgba(167, 243, 208, 0.3); /* Pastel green glow */
+  --info-bg: rgba(167, 243, 208, 0.1); /* Light green-tinted info background */
+}
+
+/* General Calendar Container Styling */
+.leave-calendar-container {
+  padding: 20px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 16px; /* More rounded for cuteness */
+  box-shadow: 0 4px 15px var(--shadow-color); /* Softer shadow */
+  margin: 20px auto;
+  max-width: 1200px;
+  font-family: "Poppins", sans-serif; /* Cute, rounded font */
+  animation: fadeIn 0.5s ease-in;
+  min-height: calc(100vh - 40px);
+  overflow-y: auto; /* Subtle entrance */
+}
+
+/* Page title */
+.page-title {
+  color: var(--primary-color); /* Pastel purple */
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+/* Calendar role info */
+.calendar-role-info {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--text-color); /* Light gray */
+  font-style: italic;
+  background-color: var(--info-bg); /* Soft pastel pink */
+  border-left: 5px solid var(--primary-color); /* Pastel purple border */
+  padding: 10px 15px;
+  border-radius: 8px; /* More rounded */
+  font-size: 0.95em;
+}
+
+/* No events message */
+.no-events-message {
+  text-align: center;
+  color: var(--label-color); /* Muted gray */
+  margin-top: 30px;
+  font-size: 1.2em;
+  padding: 20px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}
+
+/* Loading, Unauthenticated, and Error states */
+.calendar-loading,
+.calendar-unauthenticated,
+.calendar-error {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.4em;
+  font-weight: 500;
+  color: var(--text-color); /* Light gray */
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 12px; /* More rounded */
+  box-shadow: 0 2px 8px var(--shadow-color);
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+.calendar-error {
+  color: var(--error-color); /* Coral */
+  background-color: rgba(255, 135, 135, 0.1); /* Light coral background */
+  border: 1px solid var(--error-color);
+}
+
+/* React Big Calendar Overrides */
+
+/* Header Toolbar */
+.rbc-toolbar {
+  margin-bottom: 20px;
+  background-color: var(--card-bg); /* Dark card background */
+  border-radius: 8px; /* More rounded */
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+}
+
+.rbc-btn-group button {
+  background-color: var(--primary-color); /* Pastel purple */
+  color: #1a1a2e; /* Dark text for contrast */
+  border: 1px solid var(--primary-color);
+  border-radius: 8px; /* More rounded */
+  padding: 8px 15px;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.rbc-btn-group button:hover {
+  background-color: var(--hover-color); /* Soft pink */
+  border-color: var(--hover-color);
+  transform: scale(1.05);
+}
+
+.rbc-btn-group button:active,
+.rbc-btn-group button.rbc-active {
+  background-color: var(--hover-color); /* Soft pink */
+  border-color: var(--hover-color);
+  box-shadow: inset 0 1px 3px var(--shadow-color);
+}
+
+.rbc-toolbar-label {
+  font-size: 1.8em;
+  font-weight: 600;
+  color: var(--text-color); /* Light gray */
+}
+
+/* Day Cell Styling */
+.rbc-day-bg {
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.rbc-day-bg.weekend-day-cell {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Subtle contrast for weekends */
+}
+
+.rbc-day-bg.weekend-day-cell::after {
+  content: "Weekend Off";
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 0.75em;
+  color: var(--label-color); /* Muted gray */
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Current day highlight */
+.rbc-day-bg.rbc-today {
+  background-color: rgba(255, 204, 222, 0.1); /* Soft pink for today */
+  border: 1px solid var(--primary-color); /* Pastel purple */
+}
+
+/* Event Styling */
+.rbc-event {
+  border: none;
+  border-radius: 8px; /* More rounded */
+  padding: 2px 6px;
+  font-size: 0.85em;
+  background-color: var(--label-color); /* Pastel gray default */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.rbc-event:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 5px var(--glow-color); /* Soft pink glow */
+}
+
+.rbc-event-content {
+  color: #1a1a2e; /* Dark text for contrast */
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rbc-event-content strong {
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.rbc-event-content p {
+  margin: 0;
+  font-size: 0.85em;
+  opacity: 0.9;
+}
+
+/* Specific colors for different leave types */
+.rbc-event.leave-type-casual {
+  background-color: var(--success-color); /* Pastel green */
+}
+
+.rbc-event.leave-type-sick {
+  background-color: var(--error-color); /* Coral */
+}
+
+.rbc-event.leave-type-annual {
+  background-color: var(--primary-color); /* Pastel purple */
+}
+
+.rbc-event.leave-type-maternity {
+  background-color: #fed7aa; /* Soft peach */
+}
+
+.rbc-event.leave-type-paternity {
+  background-color: #c4b5fd; /* Soft lavender */
+}
+
+.rbc-event.leave-type-bereavement {
+  background-color: #d1d5db; /* Pastel gray */
+}
+
+.rbc-event.leave-type-compensatory {
+  background-color: #99f6e4; /* Pastel teal */
+}
+
+/* Cell height adjustment */
+.rbc-row-segment {
+  min-height: 25px;
+}
+
+/* Week/day view header styling */
+.rbc-header {
+  background-color: var(--card-bg); /* Dark card background */
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  color: var(--text-color); /* Light gray */
+}
+
+/* Month view cell borders */
+.rbc-month-view {
+  border: 1px solid var(--border-color);
+}
+
+.rbc-header + .rbc-header {
+  border-left: 1px solid var(--border-color);
+}
+
+.rbc-rtl .rbc-header + .rbc-header {
+  border-left-width: 0;
+  border-right: 1px solid var(--border-color);
+}
+
+.rbc-month-row + .rbc-month-row {
+  border-top: 1px solid var(--border-color);
+}
+
+.rbc-day-bg + .rbc-day-bg {
+  border-left: 1px solid var(--border-color);
+}
+
+.rbc-rtl .rbc-day-bg + .rbc-day-bg {
+  border-left-width: 0;
+  border-right: 1px solid var(--border-color);
+}
+
+/* Off-range background */
+.rbc-off-range-bg {
+  background-color: var(--input-bg); /* Slightly lighter dark */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rbc-month-view,
+.rbc-time-view,
+.rbc-agenda-view {
+  min-height: 500px;
+  overflow-y: auto;
+}

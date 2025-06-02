@@ -1,0 +1,199 @@
+/* Root variables for cute dark theme */
+:root {
+  --primary-color: #d8b4fe; /* Pastel purple for accents */
+  --hover-color: #ffccde; /* Soft pink for hover */
+  --background-color: #1a1a2e; /* Dark navy */
+  --background-gradient: linear-gradient(
+    135deg,
+    #1a1a2e,
+    #2a2a3c
+  ); /* Soft gradient */
+  --button-bg: #16213e; /* Card-like background for buttons */
+  --text-color: #e0e0e0; /* Light gray for text */
+  --shadow-color: rgba(0, 0, 0, 0.4); /* Softer shadow */
+  --glow-color: rgba(255, 204, 222, 0.3); /* Soft pink glow */
+  --success-color: #a7f3d0; /* Pastel green for success */
+  --error-color: #ff8787; /* Coral for errors */
+  --input-bg: #2a2a4a; /* Input background */
+  --input-focus-bg: #3a3a5a; /* Input focus background */
+  --label-color: #b0b0b0; /* Muted gray for labels */
+  --border-color: rgba(255, 255, 255, 0.1); /* Subtle border */
+  --info-bg: #fce7f3; /* Soft pastel pink for info messages */
+
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: var(--text-color);
+  background: var(--background-gradient);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Red theme (click) */
+body.theme-red {
+  --primary-color: #ff8787;
+  --hover-color: #ff6b6b;
+  --background-gradient: linear-gradient(135deg, #2a0a0a, #3c1414);
+  --button-bg: #2a0a0a;
+  --glow-color: rgba(255, 135, 135, 0.3);
+  --info-bg: rgba(255, 135, 135, 0.1);
+}
+
+/* Green theme (click) */
+body.theme-green {
+  --primary-color: #a7f3d0;
+  --hover-color: #6ee7b7;
+  --background-gradient: linear-gradient(135deg, #0a2a0a, #143c14);
+  --button-bg: #0a2a0a;
+  --glow-color: rgba(167, 243, 208, 0.3);
+  --info-bg: rgba(167, 243, 208, 0.1);
+}
+
+/* Ensure scrolling for html, body, and root */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%; /* Allow full height */
+  height: auto; /* Expand with content */
+  /* overflow-x: hidden; Prevent horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  font-family: "Poppins", sans-serif;
+  background: var(--background-gradient);
+  position: relative; /* Maintain particle positioning */
+}
+
+/* Animated background particles */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="rgba(255, 204, 222, 0.3)"/><circle cx="90" cy="90" r="3" fill="rgba(216, 180, 254, 0.3)"/><circle cx="50" cy="30" r="2.5" fill="rgba(167, 243, 208, 0.3)"/></svg>')
+    repeat;
+  animation: floatParticles 25s linear infinite;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* Custom scrollbar for cute aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--button-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+/* General styles */
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--background-gradient);
+  transition: background 0.5s ease;
+  /* Removed display: flex and place-items: center */
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--hover-color);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: var(--primary-color);
+  animation: fadeIn 0.5s ease-in;
+}
+
+button {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  color: #1a1a2e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px var(--glow-color);
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 8px var(--glow-color);
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: #f8fafc;
+    --background-gradient: linear-gradient(135deg, #fce7f3, #f8fafc);
+    --text-color: #1e293b;
+    --button-bg: #ffffff;
+    color: var(--text-color);
+    background: var(--background-gradient);
+  }
+  a:hover {
+    color: #c084fc;
+  }
+  button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+  }
+  button:hover {
+    background-color: var(--primary-color);
+    color: #1a1a2e;
+  }
+  h1 {
+    color: var(--primary-color);
+  }
+}
+
+/* Animations */
+@keyframes floatParticles {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

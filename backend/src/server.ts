@@ -33,7 +33,7 @@ AppDataSource.initialize()
     app.use("/api/auth", authRoutes);
     app.use("/api/leaves", leaveRoutes);
     app.use("/api/manager", managerRoutes);
-    app.use("/api/admin", adminRoutes); 
+    app.use("/api/admin", adminRoutes);
 
     // Basic route for testing server
     app.get("/", (req, res) => {
@@ -42,7 +42,7 @@ AppDataSource.initialize()
 
     // Start the server
     app.listen(port, host, () => {
-      // console.log(`Server running at http://${host}:${port}`);
+      console.log(`Server running at http://${host}:${port}`);
     });
   })
   .catch((error) =>
