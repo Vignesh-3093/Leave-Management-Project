@@ -1,20 +1,20 @@
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL || 'http://localhost:5000'; // Adjust if backend URL or base path changes
+const API_BASE_URL =
+  import.meta.env.VITE_BACKEND_API_URL || "http://localhost:5000"; // Adjust if backend URL or base path changes
 
 // Helper function to get the token from localStorage
 const getToken = () => {
-  return localStorage.getItem('token');
+  return localStorage.getItem("token");
 };
 
 // Helper function to handle logout (we'll use the AuthContext logout later)
 // For now, a simple localStorage clear and redirect placeholder
 const handleLogout = () => {
   // console.log('API helper detected authentication issue, logging out...');
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
   // You would typically dispatch a logout action or use window.location
-  window.location.href = '/login'; // Simple redirect for now
+  window.location.href = "/login"; // Simple redirect for now
 };
-
 
 /**
  * Generic API call function with JWT authentication.
@@ -29,7 +29,7 @@ const api = async (endpoint, method, data = null, requiresAuth = true) => {
   const url = `${API_BASE_URL}${endpoint}`; // Construct the full URL
 
   const headers = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     // Add other default headers if needed
   };
 
@@ -39,11 +39,12 @@ const api = async (endpoint, method, data = null, requiresAuth = true) => {
     if (!token) {
       // If authentication is required but no token is found, throw an error
       // or handle logout immediately
-      console.error('Authentication required but no token found.');
+      console.error("Authentication required but no token found.");
       handleLogout(); // Redirect to login
-      throw new Error('Authentication required.'); // Stop execution
+      throw new Error("Authentication required."); // Stop execution
     }
-    headers['Authorization'] = `Bearer ${token}`; // Add the JWT to the header
+    headers["Authorization"] = `Bearer ${token}`;
+    console.log(headers); // Add the JWT to the header
   }
 
   // Configure the fetch options
@@ -55,21 +56,28 @@ const api = async (endpoint, method, data = null, requiresAuth = true) => {
   };
 
   // Remove body for GET and HEAD requests as they should not have one
-  if (method === 'GET' || method === 'HEAD') {
-      delete options.body;
+  if (method === "GET" || method === "HEAD") {
+    delete options.body;
   }
-
 
   try {
     const response = await fetch(url, options);
 
-    if (!response.ok) { // This covers 400, 401, 403, 404, 500 etc.
-      const errorData = await response.json().catch(() => ({ message: response.statusText })); // Try to parse error message
-      if ((response.status === 401 || response.status === 403) && requiresAuth) {
-          console.error(`Authentication error on protected route: ${response.status}`);
-          handleLogout(); // This is the correct place to logout due to token invalidation
-          // Re-throw so the component also gets the error message
-          throw { response: { data: errorData, status: response.status } }; // Throw structured error for frontend
+    if (!response.ok) {
+      // This covers 400, 401, 403, 404, 500 etc.
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: response.statusText })); // Try to parse error message
+      if (
+        (response.status === 401 || response.status === 403) &&
+        requiresAuth
+      ) {
+        console.error(
+          `Authentication error on protected route: ${response.status}`
+        );
+        handleLogout(); // This is the correct place to logout due to token invalidation
+        // Re-throw so the component also gets the error message
+        throw { response: { data: errorData, status: response.status } }; // Throw structured error for frontend
       }
 
       // For all other non-OK responses (including 401 on login endpoint, 400, 500 etc.)
@@ -78,15 +86,17 @@ const api = async (endpoint, method, data = null, requiresAuth = true) => {
     }
     const text = await response.text();
     return text ? JSON.parse(text) : {};
-
   } catch (error) {
-    if (error && typeof error === 'object' && 'response' in error) {
-      console.error('API call re-throwing structured error:', error);
+    if (error && typeof error === "object" && "response" in error) {
+      console.error("API call re-throwing structured error:", error);
       throw error;
     } else {
-      console.error('Network or unexpected API call error:', error);
+      console.error("Network or unexpected API call error:", error);
       // For network errors or unexpected errors, create a generic error object.
-      throw { message: 'Network error or unexpected API issue.', originalError: error };
+      throw {
+        message: "Network error or unexpected API issue.",
+        originalError: error,
+      };
     }
   }
 };

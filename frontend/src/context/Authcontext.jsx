@@ -18,9 +18,9 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   // State to hold the current authenticated user object and JWT token
   const [user, setUser] = useState(null); // Holds the user object (or null)
-  const [token, setToken] = useState(null); // Holds the JWT token string (or null) 
+  const [token, setToken] = useState(null); // Holds the JWT token string (or null)
 
-  const [loading, setLoading] = useState(true); // True while checking localStorage 
+  const [loading, setLoading] = useState(true); // True while checking localStorage
 
   useEffect(() => {
     // console.log(
@@ -83,7 +83,6 @@ export const AuthProvider = ({ children }) => {
     console.log("AuthContext logout function called."); // Clear token and user from component state
     setToken(null);
     setUser(null); // Remove token and user from localStorage
-
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
@@ -104,9 +103,7 @@ export const AuthProvider = ({ children }) => {
   console.log("AuthProvider rendering. Current context value:", contextValue); // Provide the context value to all children components wrapped by this provider // The children are rendered regardless of loading state or authentication status // ProtectedRoute component will handle showing a loading screen or redirecting based on the context value
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
 

@@ -17,10 +17,12 @@ const protect = async (
   next: NextFunction
 ): Promise<void> => {
   const authHeader = req.headers.authorization;
+  console.log("Header:", authHeader);
 
   if (authHeader?.startsWith("Bearer ")) {
     try {
       const token = authHeader.split(" ")[1];
+      console.log("Token:", token);
 
       if (!token) {
         res.status(401).json({ message: "Not authorized, no token" });

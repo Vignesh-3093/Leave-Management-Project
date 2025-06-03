@@ -14,7 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../.env") }); // Adjust path i
 
 const app = express();
 const port = parseInt(process.env.PORT || "5000", 10);
-const host = "0.0.0.0";
+const host = "localhost";
 
 // Middleware
 app.use(cors()); // Or configure specific origins
